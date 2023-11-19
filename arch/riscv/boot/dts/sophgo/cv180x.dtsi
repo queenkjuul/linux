@@ -196,6 +196,19 @@
 			};
 		};
 
+    efuse: efuse@3050000 {
+			compatible = "sophgo,cv1800b-efuse";
+			reg = <0x3050000 0x1000>;
+			#address-cells = <1>;
+			#size-cells = <1>;
+			clocks = <&clk CLK_EFUSE>, <&clk CLK_APB_EFUSE>;
+			read-only;
+			status = "okay";
+			ephy_txitune: ephy-txitune@24 {
+					reg = <0x24 0x4>;
+			};
+    };
+
 		soc_temp: thermal-sensor@30e0000 {
 			compatible = "sophgo,cv1800-thermal";
 			reg = <0x30e0000 0x100>;
