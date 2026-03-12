@@ -87,3 +87,7 @@
 	dr_mode = "otg";
 	status = "okay";
 };
+
+&wdt {
+	status = "okay";
+};
