@@ -83,6 +83,10 @@
 	status = "okay";
 };
 
+&uart4 {
+	status = "okay";
+};
+
 &usb {
 	dr_mode = "otg";
 	status = "okay";
