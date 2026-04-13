@@ -51,6 +51,10 @@
 	status = "okay";
 };
 
+&efuse {
+	status = "okay";
+};
+
 &i2c1 {
 	status = "okay";
 };
