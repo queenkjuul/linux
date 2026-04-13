@@ -31,6 +31,45 @@
 	chosen {
 		stdout-path = "serial0:115200n8";
 	};
+
+	sound_card {
+		compatible = "simple-audio-card";
+		simple-audio-card,name = "Milk-V Duo S Built-in Audio";
+		simple-audio-card,format = "i2s";
+
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		simple-audio-card,dai-link@0 {
+			reg = <0>;
+			format = "i2s";
+			bitclock-master = <&i2s3_cpu>;
+			frame-master = <&i2s3_cpu>;
+
+			i2s3_cpu: cpu {
+				sound-dai = <&i2s3>;
+			};
+			codec {
+				sound-dai = <&int_dac>;
+				mclk-fs = <256>;
+			};
+		};
+
+		simple-audio-card,dai-link@1 {
+			reg = <1>;
+			format = "i2s";
+			bitclock-master = <&i2s0_cpu>;
+			frame-master = <&i2s0_cpu>;
+
+			i2s0_cpu: cpu {
+				sound-dai = <&i2s0>;
+			};
+			codec {
+				sound-dai = <&int_adc>;
+				mclk-fs = <256>;
+			};
+		};
+	};
 };
 
 &osc {
@@ -158,4 +197,33 @@
 
 &wdt {
 	status = "okay";
+};
+
+&i2s0 {
+	status = "okay";
+	#sound-dai-cells = <0>;
+};
+
+&i2s1 {
+	status = "disabled";
+};
+
+&i2s2 {
+	status = "disabled";
+};
+
+&i2s3 {
+	status = "okay";
+	#sound-dai-cells = <0>;
+};
+
+&int_dac {
+	status = "okay";
+};
+
+&int_adc {
+	status = "okay";
+	#sound-dai-cells = <0>;
+	/delete-property/ mute-gpio-l;
+	/delete-property/ mute-gpio-r;
 };
