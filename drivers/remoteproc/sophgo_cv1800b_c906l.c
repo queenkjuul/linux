@@ -201,6 +201,10 @@ static int cv1800b_c906l_probe(struct platform_device *pdev)
 		return dev_err_probe(dev, PTR_ERR(priv->reset),
 				     "failed to get reset control handle\n");
 
+	// if reset isn't asserted during probe,
+	// the first call to start() will always fail
+	reset_control_assert(priv->reset);
+
 	platform_set_drvdata(pdev, rproc);
 
 	ret = devm_rproc_add(dev, rproc);
